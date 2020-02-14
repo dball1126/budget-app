@@ -1,12 +1,18 @@
 <div class="root">
-    <div class="budget-item" [ngClass]="{'income': isIncome, 'expenses': !isIncome }">
-        <div class="description">
-            <p>test</p>
+    <div 
+        class="budget-item" 
+        [ngClass]="{'income': item.amount >= 0, 'expenses': item.amount < 0 }"
+        (click)="onCardClick()"
+        ><div class="description">
+            <p>{{ item.description }}</p>
         </div>
         <div class="amount">
-            <p>100</p>
+            <p>{{ item.amount }}</p>
         </div>
     </div>
 
-    <div class="x-icon-button">X</div>
+    <div 
+        class="x-icon-button"
+        (click)="onXButtonClick()"
+        >X</div>
 </div>

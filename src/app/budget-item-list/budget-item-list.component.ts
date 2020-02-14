@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BudgetItem } from 'src/shared/models/budget-item-model';
+import { MatDialog } from '@angular/material/dialog';
+import { EditItemModalComponent } from '../edit-item-modal/edit-item-modal.component';
 
 @Component({
   selector: 'app-budget-item-list',
@@ -7,9 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetItemListComponent implements OnInit {
 
-  constructor() { }
+  @Input() budgetItems: BudgetItem[];
+  @Output() delete: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>();
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  onDeleteButtonClicked(item: BudgetItem){
+    this.delete.emit(item);
+  }
+
+  onCardClicked(item: BudgetItem) {
+    //show the edit modal
+
+    const dialogRef = this.dialog.open(EditItemModalComponent, {
+      width: '588px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //check if result has a value
+      if (result) {
+        // result is the update budget item
+        // replace the item with the updated/submitted item from the form
+        this.budgetItems[this.budgetItems.indexOf(item)] = result;
+        
+      }
+    })
   }
 
 }
