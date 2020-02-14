@@ -4,6 +4,40 @@
 .root {
     display: flex;
     width: 100%;
+    position: relative;
+
+    &:hover {
+        .x-icon-button {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .x-icon-button {
+        position: absolute;
+        height: 34px;
+        width: 34px;
+        background: $dark;
+        border-radius: 50%;
+        right: -17px;  // this has to be half of the width:
+        top: -17px; // this has to be half of the height
+        align-items: center;
+        padding-left: 9px;
+        font-weight: 900;
+        cursor: pointer;
+        color: $red;
+
+        transition: opacity 0.2s ease-out, transform 0.2s ease-in;
+
+        transform: scale(0);
+        opacity: 0;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+  
 }
 
 .budget-item {
@@ -14,16 +48,28 @@
     border-radius: 5px;
     cursor: pointer;
 
+    transition: background-color 0.2s ease-out;
+    &:hover {
+        background-color: darken($light-grey, 2%);
+        
+    }
+
     .description {
+        display: flex;
         margin-left: 5px;
         flex-grow: 1;
         font-size: 18px;
+
+        // Vertically center the children elements
+        align-items: center;
     }
 
     .amount {
         padding: 5px;
         border-radius: 3px;
     }
+
+   
 }
 
 .expenses {
